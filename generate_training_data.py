@@ -26,7 +26,7 @@ def generate_graph_seq2seq_io_data(
     """
 
     num_samples, num_nodes = df.shape
-    data = np.expand_dims(df.values, axis=-1)
+    data = np.expand_dims(df.values, axis=-1)#增加一个维度
     data_list = [data]
     if add_time_in_day:
         time_ind = (df.index.values - df.index.values.astype("datetime64[D]")) / np.timedelta64(1, "D")
@@ -37,7 +37,7 @@ def generate_graph_seq2seq_io_data(
         day_in_week[np.arange(num_samples), :, df.index.dayofweek] = 1
         data_list.append(day_in_week)
 
-    data = np.concatenate(data_list, axis=-1)
+    data = np.concatenate(data_list, axis=-1)#根据最后一个维度进行拼接
     # epoch_len = num_samples + min(x_offsets) - max(y_offsets)
     x, y = [], []
     # t is the index of the last observation.
